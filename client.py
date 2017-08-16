@@ -22,12 +22,12 @@ def set_listen_thread(mine):
 
 def threaded_listen(conn):
     while True:
-        len = conn.recv(1).decode()
+        len = conn.recv(1)
         if not len:
             break
         data = ""
-
-        len = int(len,16)
+        print(len)
+        #len = int(len,16)
         while len > 0:
             data = data + conn.recv(1).decode()
             len -= 1
