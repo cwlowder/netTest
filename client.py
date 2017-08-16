@@ -64,7 +64,7 @@ def create_connection(host, port):
 
 def send_command(command):
     message = get_command(command)
-    get_socket().send(message.encode())
+    get_socket().send(bytes([message]))
 
 
 def parse_instruction(line):
