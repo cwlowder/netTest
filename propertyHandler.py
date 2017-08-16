@@ -71,19 +71,25 @@ def get_command(command):
         print("error:", e)
         return None
 
-def get_recieve_len(id):
+def get_receive(id):
     try:
-        length = get_properties()["receive_len"][id]
-        return length
+        prop = get_properties()["receive_len"][id]
+        return prop
     except:
         e = sys.exc_info()[0]
         print("error:", e)
-        return -1
+        return None
 
-def set_recieve_len(id, length):
+def set_receive(id, values):
     try:
         props = get_properties()
-        props["receive_len"][id] = int(length)
+        props["receive_len"][id] = {}
+        for i in range(0,len(values)):
+            if values[i] == "-l":
+                props["receive_len"][id]["len"] = values[i+1]
+            elif values[i] == "-n":
+                props["receive_len"][id]["name"] = values[i+1]
+
         set_properties(props)
         return True
     except:

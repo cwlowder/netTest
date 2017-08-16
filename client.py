@@ -1,6 +1,6 @@
 import socket
 import sys
-from propertyHandler import set_property, get_property, get_command, set_command, get_recieve_len, set_recieve_len
+from propertyHandler import set_property, get_property, get_command, set_command, get_receive, set_receive
 
 from _thread import *
 
@@ -22,12 +22,13 @@ def set_listen_thread(mine):
 
 def threaded_listen(conn):
     while True:
-        len = conn.recv(1)
+        id = conn.recv(1)
         if not len:
             break
         data = ""
-        len = ord(len)
-        print(len)
+        id = ord(id)
+        len = get_receive(id)["len"]
+        print(id, len)
         #len = int(len,16)
         while len > 0:
             data = data + conn.recv(1).decode()
@@ -78,9 +79,9 @@ def parse_instruction(line):
                 vals = instructions[i+3:]
                 worked = set_command(name, vals)
             elif prop == "receive":
-                name = val
-                vals = instructions[i+3]
-                worked = set_recieve_len(name, vals)
+                id = val
+                vals = instructions[i+3:]
+                worked = set_receive(id, vals)
             else:
                 worked = set_property(prop, val)
             return worked
@@ -96,9 +97,9 @@ def parse_instruction(line):
                     return False
             if prop == "receive":
                 command = instructions[i + 2]
-                ret = get_recieve_len(command)
-                if ret > -1:
-                    print("receive length of " + command + " is " + str(ret) + " bytes")
+                ret = get_receive(command)
+                if ret is not None:
+                    print("receive for id " + command + " is " + str(ret))
                     return True
                 else:
                     return False
