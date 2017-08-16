@@ -27,14 +27,14 @@ def threaded_listen(conn):
             break
         data = ""
         id = ord(id)
-
-        len = int(get_receive(str(id))["len"])
+        recieve = get_receive(str(id))
+        len = int(recieve["len"])
         print(id, len)
         #len = int(len,16)
         while len > 0:
             data = data + conn.recv(1).decode()
             len -= 1
-        print('\r' + data)
+        print('\r' + recieve["name"] + "> " + data)
     conn.close()
     set_socket(None)
     set_listen_thread(None)
