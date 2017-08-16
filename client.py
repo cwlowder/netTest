@@ -28,7 +28,7 @@ def threaded_listen(conn):
         data = ""
         id = ord(id)
 
-        len = get_receive(str(id))["len"]
+        len = int(get_receive(str(id))["len"])
         print(id, len)
         #len = int(len,16)
         while len > 0:
