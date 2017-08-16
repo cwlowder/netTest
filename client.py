@@ -29,7 +29,6 @@ def threaded_listen(conn):
         id = ord(id)
         recieve = get_receive(str(id))
         len = int(recieve["len"])
-        print(id, len)
         #len = int(len,16)
         while len > 0:
             data = data + conn.recv(1).decode()
