@@ -26,6 +26,7 @@ def threaded_listen(conn):
         if not len:
             break
         data = ""
+        len = ord(len)
         print(len)
         #len = int(len,16)
         while len > 0:
