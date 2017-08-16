@@ -27,7 +27,7 @@ def threaded_listen(conn):
             break
         data = ""
 
-        len = int(len)
+        len = int(len,16)
         while len > 0:
             data = data + conn.recv(1).decode()
             len -= 1
