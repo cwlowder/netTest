@@ -1,5 +1,6 @@
 import json
 import sys
+import pprint
 
 def get_type(val):
     try:
@@ -71,9 +72,21 @@ def get_command(command):
         print("error:", e)
         return None
 
+def props_list(what):
+    try:
+        prop = get_properties()
+        if what == "commands":
+            print(prop["commands"])
+            return True
+        elif what == "receives":
+            print(prop["receives"])
+            return True
+        return False
+    except:
+        return False
 def get_receive(id):
     try:
-        prop = get_properties()["receive_len"][id]
+        prop = get_properties()["receives"][id]
         return prop
     except:
         e = sys.exc_info()[0]

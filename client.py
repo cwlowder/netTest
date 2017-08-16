@@ -1,6 +1,6 @@
 import socket
 import sys
-from propertyHandler import set_property, get_property, get_command, set_command, get_receive, set_receive
+from propertyHandler import set_property, get_property, get_command, set_command, get_receive, set_receive, props_list
 
 from _thread import *
 
@@ -71,6 +71,10 @@ def parse_instruction(line):
     instructions = line.split()
     for i in range(0, len(instructions)):
         instruct = instructions[i].lower()
+        if instruct == "list":
+            what = instructions[i+1]
+            return props_list(what)
+
         if instruct == "set":
             prop = instructions[i + 1]
             val = instructions[i + 2]
