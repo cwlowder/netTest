@@ -1,4 +1,5 @@
 import json
+import sys
 
 def get_type(val):
     try:
@@ -42,6 +43,8 @@ def get_property(prop):
         elif prop == "help":
             return get_properties()["help"]
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return None
 
 
@@ -64,6 +67,8 @@ def get_command(command):
 
         return val
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return None
 
 def get_recieve_len(id):
@@ -71,6 +76,8 @@ def get_recieve_len(id):
         length = get_properties()["receive_len"][id]
         return length
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return -1
 
 def set_recieve_len(id, length):
@@ -80,6 +87,8 @@ def set_recieve_len(id, length):
         set_properties(props)
         return True
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return False
 
 
@@ -96,6 +105,8 @@ def set_command(command, values):
         set_properties(properties)
         return True
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return False
 
 
@@ -113,13 +124,12 @@ def set_property(prop, val):
         else:
             return False
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return False
 
     set_properties(properties)
     return True
-
-
-
 
 
 def get_properties():
@@ -128,6 +138,8 @@ def get_properties():
             props = json.load(data_file)
         return props
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return None
 
 def set_properties(new_props):
@@ -136,4 +148,6 @@ def set_properties(new_props):
             json.dump(new_props, outfile)
         return True
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return False

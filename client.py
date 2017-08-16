@@ -1,4 +1,5 @@
 import socket
+import sys
 from propertyHandler import set_property, get_property, get_command, set_command, get_recieve_len, set_recieve_len
 
 from _thread import *
@@ -44,6 +45,8 @@ def start_listening():
         else:
             return None
     except:
+        e = sys.exc_info()[0]
+        print("error:", e)
         return None
 
 def create_connection(host, port):
@@ -53,6 +56,8 @@ def create_connection(host, port):
         set_socket(mySocket)
         return True
     except:
+        e = sys.exc_info()[0]
+        print("error:",e)
         return False
 
 def send_command(command):
@@ -130,6 +135,8 @@ def Main():
         try:
             worked = parse_instruction(line)
         except:
+            e = sys.exc_info()[0]
+            print("error:", e)
             worked = False
         if not worked:
             print("error occured")
