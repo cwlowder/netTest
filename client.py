@@ -37,7 +37,7 @@ def threaded_listen(conn):
         data = conn.recv(len)
         #    len -= 1
         parseInput()
-        print('\r' + recieve["name"] + "> " + data)
+        print('\r' + recieve["name"] + "> " + str(data))
     conn.close()
     set_socket(None)
     set_listen_thread(None)
