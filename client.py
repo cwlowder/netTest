@@ -24,11 +24,11 @@ def parseInput(data, format):
     for form in format:
         type = form["type"]
         size = get_property("sizeof"+type)
-        for item in range(0, form["number"]):
+        item = 0
+        while item < form["number"]:
             raw = data[item:item+size]
             print("raw",raw)
             item += size
-            pass
 
 def threaded_listen(conn):
     while True:
