@@ -32,13 +32,13 @@ def parseInput(data, format):
             while item < form["number"]*size + olditem:
                 #print(item)
                 raw = data[item:item+size]
-                raw = "".join(str(x) for x in raw)
-                print("raw on type " + type + "(" + str(size) + ") is ", raw)
+                raw = b''.join(raw)
+                #print("raw on type " + type + "(" + str(size) + ") is ", raw)
                 value = None
-                #if type == "double" or type == "float":
-                #    pass#value = struct.unpack('d',raw)
-                #else:
-                value = int.from_bytes(raw, byteorder='big', signed=True)
+                if type == "double" or type == "float":
+                    value = struct.unpack('d',raw)[0]
+                else:
+                	value = int.from_bytes(raw, byteorder='little', signed=True)
                 
                 item += size
                 values.append(value)
