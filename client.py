@@ -32,7 +32,7 @@ def parseInput(data, format):
                 item += size
     except:
         e = sys.exc_info()[0]
-        print("error parsing input:", e)
+        print("error parsingInput:", e)
         return None
 
 def threaded_listen(conn):
