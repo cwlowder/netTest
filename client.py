@@ -26,9 +26,9 @@ def parseInput(data, format):
             type = form["type"]
             size = get_property("sizeof"+type)
             item = 0
-            print(type)
-            while item < form["number"]:
-                print(item)
+            #print(type)
+            while item <= form["number"]:
+                #print(item)
                 raw = data[item:item+size]
                 print("raw on type " + type + "(" + str(size) + ") is ", raw)
 
