@@ -22,10 +22,10 @@ def set_listen_thread(mine):
 
 def parseInput(data, format):
     i = 0
-    for form in format.keys():
-        type = format[form]["type"]
+    for form in format:
+        type = form["type"]
         size = get_property("sizeof"+type)
-        for item in range(0,format[form]["number"]):
+        for item in range(0, form["number"]):
             raw = data[i:i+size]
             print("raw",raw)
             i += size
