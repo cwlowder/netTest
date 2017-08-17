@@ -76,10 +76,10 @@ def props_list(what):
     try:
         prop = get_properties()
         if what == "commands":
-            print(prop["commands"])
+            pprint.pprint(prop["commands"], width=1)
             return True
         elif what == "receives":
-            print(prop["receives"])
+            pprint.pprint(prop["receives"], width=10)
             return True
         return False
     except:
@@ -111,6 +111,7 @@ def parseFormat(format):
 def set_receive(id, values):
     try:
         props = get_properties()
+        int(id)
         if id not in props["receives"]:
             props["receives"][id] = {}
 

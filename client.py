@@ -33,9 +33,10 @@ def threaded_listen(conn):
         recieve = get_receive(str(id))
         len = int(recieve["len"])
         #len = int(len,16)
-        #while len > 0:
-        data = conn.recv(len)
-        #    len -= 1
+        data = []
+        while len > 0:
+            data.append(conn.recv(1))
+            len -= 1
         parseInput()
         print('\r' + recieve["name"] + "> " + str(data))
     conn.close()
