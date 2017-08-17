@@ -49,6 +49,11 @@ def parseInput(data, format):
         print("error parsingInput:", e)
         return None
 
+def end_conn():
+    conn.close()
+    set_socket(None)
+    set_listen_thread(None)
+
 def threaded_listen(conn):
     while True:
         id = conn.recv(1)
@@ -164,7 +169,10 @@ def parse_instruction(line):
                 command = instructions[i + 1]
                 send_command(command)
                 return True
-
+        elif instruct == "exit" or instruct == "quit":
+            end_conn()
+            exit()
+            return True
 
 
 def Main():
