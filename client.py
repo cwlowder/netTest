@@ -28,7 +28,7 @@ def parseInput(data, format):
             item = 0
             while item < form["number"]:
                 raw = data[item:item+size]
-                print("raw",raw)
+                print("raw on type " + type + " is " + raw)
                 item += size
     except:
         e = sys.exc_info()[0]
