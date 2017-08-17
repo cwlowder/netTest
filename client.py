@@ -34,11 +34,12 @@ def parseInput(data, format):
                 raw = data[item:item+size]
                 raw = "".join(str(x) for x in raw)
                 print("raw on type " + type + "(" + str(size) + ") is ", raw)
-
-                if type == "double" or type == "float":
-                    value = struct.unpack('d',raw)
-                else:
-                    value = int.from_bytes(raw, byteorder='big', signed=True)
+                value = None
+                #if type == "double" or type == "float":
+                #    pass#value = struct.unpack('d',raw)
+                #else:
+                value = int.from_bytes(raw, byteorder='big', signed=True)
+                
                 item += size
                 values.append(value)
             olditem = item
