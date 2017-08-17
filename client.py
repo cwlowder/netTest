@@ -22,18 +22,19 @@ def set_listen_thread(mine):
 
 def parseInput(data, format):
     try:
+        item = 0
+        olditem = 0
         for form in format:
             type = form["type"]
             size = get_property("sizeof"+type)
-            item = 0
-            #print(type)
-            while item < form["number"]:
+            while item < form["number"]*size + olditem:
                 #print(item)
                 raw = data[item:item+size]
                 print("raw on type " + type + "(" + str(size) + ") is ", raw)
 
                 item += size
                 #print(item)
+            olditem = item
     except:
         e = sys.exc_info()[0]
         print("error parsingInput:", e)
