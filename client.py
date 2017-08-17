@@ -64,7 +64,7 @@ def create_connection(host, port):
 
 def send_command(command):
     message = get_command(command)
-    message = message.to_bytes(2, 'big')
+    message = message.to_bytes(1, 'big')
     get_socket().send(message)
 
 
