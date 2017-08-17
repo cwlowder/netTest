@@ -21,7 +21,6 @@ def set_listen_thread(mine):
     listen_thread = mine
 
 def parseInput(data, format):
-
     for form in format:
         type = form["type"]
         size = get_property("sizeof"+type)
