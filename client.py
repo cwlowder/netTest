@@ -33,7 +33,7 @@ def parseInput(data, format):
                 print("raw on type " + type + "(" + str(size) + ") is ", raw)
 
                 item += size
-                print(item)
+                #print(item)
     except:
         e = sys.exc_info()[0]
         print("error parsingInput:", e)
