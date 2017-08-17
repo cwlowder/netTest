@@ -1,5 +1,6 @@
 import socket
 import sys
+import struct
 from propertyHandler import set_property, get_property, get_command, set_command, get_receive, set_receive, props_list
 
 from _thread import *
@@ -22,6 +23,7 @@ def set_listen_thread(mine):
 
 def parseInput(data, format):
     try:
+        values = []
         item = 0
         olditem = 0
         for form in format:
@@ -30,11 +32,17 @@ def parseInput(data, format):
             while item < form["number"]*size + olditem:
                 #print(item)
                 raw = data[item:item+size]
+                raw = "".join(str(x) for x in raw)
                 print("raw on type " + type + "(" + str(size) + ") is ", raw)
 
+                if type == "double" or type == "float":
+                    value = struct.unpack('d',raw)
+                else:
+                    value = int.from_bytes(raw, byteorder='big', signed=True)
                 item += size
-                #print(item)
+                values.append(value)
             olditem = item
+        return values
     except:
         e = sys.exc_info()[0]
         print("error parsingInput:", e)
@@ -54,8 +62,8 @@ def threaded_listen(conn):
         while len > 0:
             data.append(conn.recv(1))
             len -= 1
-        parseInput(data, recieve["format"])
-        print('\r' + recieve["name"] + "> " + str(data))
+        parsed = parseInput(data, recieve["format"])
+        print('\r' + recieve["name"] + "> ", parsed)
     conn.close()
     set_socket(None)
     set_listen_thread(None)
