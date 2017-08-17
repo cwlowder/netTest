@@ -93,15 +93,38 @@ def get_receive(id):
         print("error:", e)
         return None
 
+
+def parseFormat(format):
+    import re
+    fields = re.findall('\[([^[\]]*)\]', format)
+    template = []
+    for field in fields:
+        field = field.split("#")
+        type = field[0]
+        if len(field) > 1:
+            number = int(field[1])
+        else:
+            number = 1
+        template.append({"type":type,"number":1})
+    return template
+
 def set_receive(id, values):
     try:
         props = get_properties()
-        props["receive_len"][id] = {}
+        if id not in props["receives"]:
+            props["receives"][id] = {}
+
         for i in range(0,len(values)):
-            if values[i] == "-l":
-                props["receive_len"][id]["len"] = values[i+1]
-            elif values[i] == "-n":
-                props["receive_len"][id]["name"] = values[i+1]
+            if values[i] == "-l" or values[i] == "-length":
+                props["receives"][id]["len"] = values[i+1]
+                i+=1
+            elif values[i] == "-n" or values[i] == "-name":
+                props["receives"][id]["name"] = values[i+1]
+                i+=1
+            elif values[i] == "-f" or values[i] == "-format":
+                format = values[i+1]
+                props["receives"][id]["format"] = parseFormat(format)
+                i+=1
 
         set_properties(props)
         return True

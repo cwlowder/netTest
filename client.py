@@ -20,6 +20,9 @@ def set_listen_thread(mine):
     global listen_thread
     listen_thread = mine
 
+def parseInput():
+    pass
+
 def threaded_listen(conn):
     while True:
         id = conn.recv(1)
@@ -30,9 +33,10 @@ def threaded_listen(conn):
         recieve = get_receive(str(id))
         len = int(recieve["len"])
         #len = int(len,16)
-        while len > 0:
-            data = data + conn.recv(1).decode()
-            len -= 1
+        #while len > 0:
+        data = data + conn.recv(len).decode()
+        #    len -= 1
+        parseInput()
         print('\r' + recieve["name"] + "> " + data)
     conn.close()
     set_socket(None)
