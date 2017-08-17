@@ -21,14 +21,14 @@ def set_listen_thread(mine):
     listen_thread = mine
 
 def parseInput(data, format):
-    i = 0
+
     for form in format:
         type = form["type"]
         size = get_property("sizeof"+type)
         for item in range(0, form["number"]):
             raw = data[i:i+size]
             print("raw",raw)
-            i += size
+            item += size
             pass
 
 def threaded_listen(conn):
