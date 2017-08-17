@@ -26,7 +26,7 @@ def parseInput(data, format):
         type = form["type"]
         size = get_property("sizeof"+type)
         for item in range(0, form["number"]):
-            raw = data[i:i+size]
+            raw = data[item:item+size]
             print("raw",raw)
             item += size
             pass
