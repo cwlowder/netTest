@@ -114,7 +114,6 @@ def parse_instruction(line):
         if instruct == "list":
             what = instructions[i+1]
             return props_list(what)
-
         if instruct == "set":
             prop = instructions[i + 1]
             val = instructions[i + 2]
