@@ -20,8 +20,16 @@ def set_listen_thread(mine):
     global listen_thread
     listen_thread = mine
 
-def parseInput():
-    pass
+def parseInput(data, format):
+    i = 0
+    for form in format.keys():
+        type = format[form]["type"]
+        size = get_property("sizeof"+type)
+        for item in range(0,format[form]["number"]):
+            raw = data[i:i+size]
+            print("raw",raw)
+            i += size
+            pass
 
 def threaded_listen(conn):
     while True:
@@ -37,7 +45,7 @@ def threaded_listen(conn):
         while len > 0:
             data.append(conn.recv(1))
             len -= 1
-        parseInput()
+        parseInput(data, recieve["format"])
         print('\r' + recieve["name"] + "> " + str(data))
     conn.close()
     set_socket(None)

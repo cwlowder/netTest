@@ -23,7 +23,13 @@ def get_type(val):
 valid_props = {"host":"string",
                "port":"int",
                 "print":"boolean",
-                "outfile":"string"
+                "outfile":"string",
+               "sizeofuint8":"int",
+               "sizeofuint16": "int",
+               "sizeofuint32": "int",
+               "sizeofdouble": "int",
+               "sizeoflong": "int",
+               "sizeoffloat": "int"
                 }
 
 def get_property(prop):
@@ -113,7 +119,7 @@ def set_receive(id, values):
         props = get_properties()
         int(id)
         if id not in props["receives"]:
-            props["receives"][id] = {}
+            props["receives"][id] = {"name":"test", "len":4,"format":[{"type": "int32", "number": 1}]}
 
         for i in range(0,len(values)):
             if values[i] == "-l" or values[i] == "-length":
@@ -157,7 +163,7 @@ def set_property(prop, val):
     properties = get_properties()
 
     try:
-        if prop in valid_props.keys() and valid_props[prop] is get_type(val):
+        if prop in valid_props.keys() and valid_props[prop] == get_type(val):
                 if get_type(val) == bool:
                     if val == "true" or val == "t":
                         val = True
