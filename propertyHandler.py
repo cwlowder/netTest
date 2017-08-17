@@ -111,7 +111,7 @@ def parseFormat(format):
             number = int(field[1])
         else:
             number = 1
-        template.append({"type":type,"number":1})
+        template.append({"type":type,"number":number})
     return template
 
 def set_receive(id, values):
