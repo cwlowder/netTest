@@ -2,7 +2,7 @@ import socket
 import sys
 import struct
 from propertyHandler import set_property, get_property, get_command, set_command, get_receive, set_receive, props_list
-
+from printer import *
 from _thread import *
 
 mySocket = None
@@ -21,7 +21,7 @@ def set_listen_thread(mine):
     global listen_thread
     listen_thread = mine
 
-def parseInput(data, format):
+def parseSizeof(data, format):
     try:
         values = []
         item = 0
@@ -33,8 +33,7 @@ def parseInput(data, format):
                 #print(item)
                 raw = data[item:item+size]
                 raw = b''.join(raw)
-                #print("raw on type " + type + "(" + str(size) + ") is ", raw)
-                value = None
+
                 if type == "double" or type == "float":
                     value = struct.unpack('d',raw)[0]
                 else:
@@ -50,6 +49,7 @@ def parseInput(data, format):
         return None
 
 def end_conn():
+    conn = get_socket()
     conn.close()
     set_socket(None)
     set_listen_thread(None)
@@ -63,12 +63,15 @@ def threaded_listen(conn):
         id = ord(id)
         recieve = get_receive(str(id))
         len = int(recieve["len"])
-        #len = int(len,16)
+
         data = []
         while len > 0:
             data.append(conn.recv(1))
             len -= 1
-        parsed = parseInput(data, recieve["format"])
+        parsed = parseSizeof(data, recieve["format"])
+        message = '\r' + recieve["name"] + "> " + str(parsed)
+        if get_property('print'):
+            fprint(message)
         print('\r' + recieve["name"] + "> ", parsed)
     conn.close()
     set_socket(None)
