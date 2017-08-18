@@ -60,6 +60,8 @@ This is a list of the properties that can be set, what they affect, and what typ
 * outfile
     * The file that will be printed to and overwritten
     * Can be set to a string
+
+The rest of the properties should not be edited:
 * sizeofuint8
     * Number of bytes in an uint8
     * Can be set to an int
