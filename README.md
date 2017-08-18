@@ -41,6 +41,8 @@ type can be one of the following:
 * float
 * double
 * long
+* char
+* byte
 
 The `#number` represents the number of consecutive numbers that will be received of that type.
 When omitted, it is implied only a single value exists. Multiple of these types can be strung together.
@@ -79,4 +81,10 @@ The rest of the properties should not be edited:
     * Can be set to an int
 * sizeoflong
     * Number of bytes in a long
+    * Can be set to an int
+* sizeofchar
+    * Number of bytes for a char, a series of chars make up a string
+    * Can be set to an int
+* sizeofbyte
+    * Number of bytes in a byte
     * Can be set to an int

@@ -29,8 +29,10 @@ valid_props = {"host":"string",
                "sizeofuint32": "int",
                "sizeofdouble": "int",
                "sizeoflong": "int",
-               "sizeoffloat": "int"
-                }
+               "sizeoffloat": "int",
+               "sizeofchar": "int",
+               "sizeofbyte": "int"
+               }
 
 def get_property(prop):
     try:
@@ -104,6 +106,7 @@ def parseFormat(format):
     import re
     fields = re.findall('\[([^[\]]*)\]', format)
     template = []
+    length = 0
     for field in fields:
         field = field.split("#")
         type = field[0]
@@ -112,7 +115,8 @@ def parseFormat(format):
         else:
             number = 1
         template.append({"type":type,"number":number})
-    return template
+        length+=get_property("sizeof"+type)*number
+    return (template, length)
 
 def set_receive(id, values):
     try:
@@ -130,7 +134,9 @@ def set_receive(id, values):
                 i+=1
             elif values[i] == "-f" or values[i] == "-format":
                 format = values[i+1]
-                props["receives"][id]["format"] = parseFormat(format)
+                ret = parseFormat(format)
+                props["receives"][id]["format"] = ret[0]
+                props["receives"][id]["len"] = ret[1]
                 i+=1
 
         set_properties(props)

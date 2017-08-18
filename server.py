@@ -11,10 +11,16 @@ def threaded_client(conn, addr):
         try:
             data = conn.recv(2048).decode()
             print("from <" + addr[0] + ':' + str(addr[1]) + '>: ' + data)
-            reply = 'server output: ' + data
+            reply = 'aserver output: ' + data
             if not data:
                 break
-            conn.sendall(str.encode(reply))
+            id = 21
+            id = id.to_bytes(1,"big")
+            print("test ",id)
+            #conn.sendall(id.encode())
+            conn.sendall( id + (reply).encode() )
+            print( (id+reply).encode() )
+            print( (id+reply).encode().decode())
         except:
             pass
     print('closing client: ' + str(conn))

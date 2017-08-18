@@ -21,7 +21,7 @@ def set_listen_thread(mine):
     global listen_thread
     listen_thread = mine
 
-def parseSizeof(data, format):
+def parseReceived(data, format):
     try:
         values = []
         item = 0
@@ -29,6 +29,7 @@ def parseSizeof(data, format):
         for form in format:
             type = form["type"]
             size = get_property("sizeof"+type)
+            string = ""
             while item < form["number"]*size + olditem:
                 #print(item)
                 raw = data[item:item+size]
@@ -36,11 +37,19 @@ def parseSizeof(data, format):
 
                 if type == "double" or type == "float":
                     value = struct.unpack('d',raw)[0]
+                elif type == "char":
+                    value = raw.decode()
+                    pass
                 else:
                 	value = int.from_bytes(raw, byteorder='little', signed=True)
                 
                 item += size
-                values.append(value)
+                if type != "char":
+                    values.append(value)
+                else:
+                    string +=value
+            if type == "char":
+                values.append(string)
             olditem = item
         return values
     except:
@@ -49,10 +58,14 @@ def parseSizeof(data, format):
         return None
 
 def end_conn():
-    conn = get_socket()
-    conn.close()
-    set_socket(None)
-    set_listen_thread(None)
+    try:
+        conn = get_socket()
+        conn.close()
+        set_socket(None)
+        set_listen_thread(None)
+    except:
+        e = sys.exc_info()[0]
+        print("error ending connection:", e)
 
 def threaded_listen(conn):
     if get_property('print'):
@@ -64,17 +77,28 @@ def threaded_listen(conn):
         data = ""
         id = ord(id)
         recieve = get_receive(str(id))
-        len = int(recieve["len"])
+        if recieve is None:
+            len = 0
+        else:
+            len = int(recieve["len"])
 
         data = []
         while len > 0:
-            data.append(conn.recv(1))
-            len -= 1
-        parsed = parseSizeof(data, recieve["format"])
-        message = '\r' + recieve["name"] + "> " + str(parsed)
-        if get_property('print'):
-            fprint(message)
-        print('\r' + recieve["name"] + "> ", parsed)
+            try:
+                data.append(conn.recv(1))
+                len -= 1
+            except:
+                break
+        if len(data) > 0:
+            format = recieve.get("format",None)
+            if format is not None:
+                parsed = parseReceived(data, recieve["format"])
+            else:
+                parsed = data
+            message = '\r' + recieve["name"] + "> " + str(parsed)
+            if get_property('print'):
+                fprint(message)
+            print(message)
     conn.close()
     set_socket(None)
     set_listen_thread(None)
@@ -183,7 +207,9 @@ def Main():
     while True:
         line = input(" -> ")
         try:
-            worked = parse_instruction(line)
+            line = line.split('&')
+            for command in line:
+                worked = parse_instruction(command)
         except:
             e = sys.exc_info()[0]
             print("error:", e)
