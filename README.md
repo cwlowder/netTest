@@ -33,6 +33,6 @@ type can be one of the following:
 * double
 * long
 
-The #number represents the number of consecutive numbers that will be received of that type.
+The `#number` represents the number of consecutive numbers that will be received of that type.
 When omitted, it is implied only a single value exists. Multiple of these types can be strung together.
 An example of this: `[uint8#2][double][uint32#4]`. This statement implies that 2 uint8s, then a double, then 4 uint32s will be received.
