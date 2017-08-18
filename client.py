@@ -65,7 +65,7 @@ def end_conn():
         set_listen_thread(None)
     except:
         e = sys.exc_info()[0]
-        print("error ending connection:", e)
+        print("error ending :", e)
 
 def threaded_listen(conn):
     if get_property('print'):
@@ -78,15 +78,15 @@ def threaded_listen(conn):
         id = ord(id)
         recieve = get_receive(str(id))
         if recieve is None:
-            len = 0
+            length = 0
         else:
-            len = int(recieve["len"])
+            length = int(recieve["length"])
 
         data = []
-        while len > 0:
+        while length > 0:
             try:
                 data.append(conn.recv(1))
-                len -= 1
+                length -= 1
             except:
                 break
         if len(data) > 0:
