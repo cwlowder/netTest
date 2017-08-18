@@ -187,6 +187,9 @@ def parse_instruction(line):
             if worked:
                 print("connected to " + host + ":" + str(port))
             return worked
+        elif instruct == "disconnect":
+            end_conn()
+            return True
         elif instruct == "listen":
             start_listening()
             return get_listen_thread() is not None

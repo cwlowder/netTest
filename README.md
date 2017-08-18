@@ -3,12 +3,16 @@ This python script allows for the sending and receiving of packets over tcp<br/>
 This program can be run with `python3 client.py`
 
 ### Commands
+commands can be joined together using an `&` like so:<br/>
+`connect & listen`
 #### list
 Used to list either `commands` or `receives`.<br/>
 example: `list commands`
 #### connect
 Used to connect to what ever host & port is set to
 example: `connect`<br/>
+#### disconnect
+Used to disconnect from the current connection
 #### listen
 This command starts listening to the data being received. Requires an active connection.<br/>
 example: `listen`<br/>
