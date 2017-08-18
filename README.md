@@ -2,7 +2,7 @@
 This python script allows for the sending and receiving of packets over tcp<br/>
 This program can be run with `python3 client.py`
 
-### commands
+### Commands
 #### list
 Used to list either `commands` or `receives`.<br/>
 example: `list commands`
@@ -45,3 +45,36 @@ type can be one of the following:
 The `#number` represents the number of consecutive numbers that will be received of that type.
 When omitted, it is implied only a single value exists. Multiple of these types can be strung together.
 An example of this: `[uint8#2][double][uint32#4]`. This statement implies that 2 uint8s, then a double, then 4 uint32s will be received.
+
+### Properties
+This is a list of the properties that can be set, what they affect, and what type(int, float, etc) can they be set to.
+* host
+    * The host to be connected to
+    * Can be set to a string
+* port
+    * The port to be connected to
+    * Can be set to an int
+* print
+    * Should the data received when listening be printed?
+    * Can be set to a boolean
+* outfile
+    * The file that will be printed to and overwritten
+    * Can be set to a string
+* sizeofuint8
+    * Number of bytes in an uint8
+    * Can be set to an int
+* sizeofuint16
+    * Number of bytes in an uint16
+    * Can be set to an int
+* sizeofuint32
+    * Number of bytes in an uint32
+    * Can be set to an int
+* sizeoffloat
+    * Number of bytes in a float
+    * Can be set to an int
+* sizeofdouble
+    * Number of bytes in a double
+    * Can be set to an int
+* sizeoflong
+    * Number of bytes in a long
+    * Can be set to an int

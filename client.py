@@ -55,6 +55,8 @@ def end_conn():
     set_listen_thread(None)
 
 def threaded_listen(conn):
+    if get_property('print'):
+        fclear()
     while True:
         id = conn.recv(1)
         if not id:
