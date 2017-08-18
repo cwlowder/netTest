@@ -6,6 +6,15 @@ This program can be run with `python3 client.py`
 #### list
 Used to list either `commands` or `receives`.<br/>
 example: `list commands`
+#### connect
+Used to connect to what ever host & port is set to
+example: `connect`<br/>
+#### listen
+This command starts listening to the data being received. Requires an active connection.<br/>
+example: `listen`<br/>
+#### send
+Sends whatever command is given as an argument. Requires an active connection.<br/>
+example: `send test_command`<br/>
 #### get
 Used to get the properties and the format of the commands and receives<br/>
 example: `get host`<br/>
