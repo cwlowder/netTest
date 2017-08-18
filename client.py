@@ -80,7 +80,7 @@ def threaded_listen(conn):
         if recieve is None:
             length = 0
         else:
-            length = int(recieve["length"])
+            length = int(recieve["len"])
 
         data = []
         while length > 0:
