@@ -24,6 +24,8 @@ valid_props = {"host":"string",
                "port":"int",
                 "print":"boolean",
                 "outfile":"string",
+               "commandidbytes":"int",
+               "receiveidbytes":"int",
                "sizeofuint8":"int",
                "sizeofuint16": "int",
                "sizeofuint32": "int",
@@ -34,7 +36,7 @@ valid_props = {"host":"string",
                "sizeofbyte": "int"
                }
 
-def get_property(prop):
+def get_property(prop, default = None):
     try:
         if prop in valid_props.keys():
             val = get_properties()[prop]
@@ -54,10 +56,10 @@ def get_property(prop):
     except:
         e = sys.exc_info()[0]
         print("error:", e)
-        return None
+        return default
 
 
-def get_command(command):
+def get_command(command, default = None):
     try:
         command = get_properties()["commands"][command]
 
@@ -78,7 +80,7 @@ def get_command(command):
     except:
         e = sys.exc_info()[0]
         print("error:", e)
-        return None
+        return default
 
 def props_list(what):
     try:
@@ -92,14 +94,14 @@ def props_list(what):
         return False
     except:
         return False
-def get_receive(id):
+def get_receive(id, default = None):
     try:
         prop = get_properties()["receives"][id]
         return prop
     except:
         e = sys.exc_info()[0]
         print("error:", e)
-        return None
+        return default
 
 
 def parseFormat(format):

@@ -71,7 +71,8 @@ def threaded_listen(conn):
     if get_property('print'):
         fclear()
     while True:
-        id = conn.recv(1)
+        lengthid = get_property('receiveidbytes')
+        id = conn.recv(lengthid)
         if not id:
             break
         data = ""
@@ -128,8 +129,12 @@ def create_connection(host, port):
         return False
 
 def send_command(command):
-    message = get_command(command)
-    message = message.to_bytes(1, 'big')
+    message = get_command(command, None)
+    if message is None:
+        print("error: command",command,"is not set")
+        return
+    lengthcommand = get_property('commandidbytes', 1)
+    message = message.to_bytes(lengthcommand, 'big')
     get_socket().send(message)
 
 
@@ -166,7 +171,7 @@ def parse_instruction(line):
                     return False
             if prop == "receive":
                 command = instructions[i + 2]
-                ret = get_receive(command)
+                ret = get_receive(command, None)
                 if ret is not None:
                     print("receive for id " + command + " is " + str(ret))
                     return True
