@@ -66,6 +66,12 @@ This is a list of the properties that can be set, what they affect, and what typ
 * outfile
     * The file that will be printed to and overwritten
     * Can be set to a string
+* commandidbytes
+    * The number of bytes that make up the id for the sent command
+    * Can be set to an int
+* receiveidbytes
+    * The number of bytes that make up the id for receives
+    * Can be set to an int
 
 The rest of the properties should not be edited:
 * sizeofuint8
