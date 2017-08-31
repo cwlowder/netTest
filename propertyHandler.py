@@ -92,6 +92,9 @@ def props_list(what):
         elif what == "receives":
             pprint.pprint(prop["receives"], width=10)
             return True
+        elif what == "properties":
+            pprint.pprint(valid_props, width=10)
+            return True
         return False
     except:
         return False

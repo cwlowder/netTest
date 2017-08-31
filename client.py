@@ -149,6 +149,7 @@ def parse_instruction(line):
             else:
                 print("Must specify what to list")
                 print("Current options are:")
+                print("  properties")
                 print("  commands")
                 print("  receives")
                 return True
