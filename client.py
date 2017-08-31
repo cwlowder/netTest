@@ -131,7 +131,7 @@ def create_connection(host, port):
 def send_command(command):
     message = get_command(command, None)
     if message is None:
-        print("error: command",command,"is not set")
+        print("error: command",command,"is not defined")
         return
     lengthcommand = get_property('commandidbytes', 1)
     message = message.to_bytes(lengthcommand, 'big')
@@ -215,6 +215,10 @@ def parse_instruction(line):
         elif instruct == "exit" or instruct == "quit":
             end_conn()
             exit()
+            return True
+        elif instruct == "help":
+            help_text = get_property("help", "No help text found")
+            print(get_property("help", "No help option found"))
             return True
 
 

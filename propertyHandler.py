@@ -52,6 +52,7 @@ def get_property(prop, default = None):
                 val = float(val)
             return val
         elif prop == "help":
+            get_properties().get
             return get_properties()["help"]
     except:
         e = sys.exc_info()[0]
