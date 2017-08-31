@@ -143,8 +143,15 @@ def parse_instruction(line):
     for i in range(0, len(instructions)):
         instruct = instructions[i].lower()
         if instruct == "list":
-            what = instructions[i+1]
-            return props_list(what)
+            if (len(instructions) > 1):
+                what = instructions[i+1]
+                return props_list(what)
+            else:
+                print("Must specify what to list")
+                print("Current options are:")
+                print("  commands")
+                print("  receives")
+                return True
         if instruct == "set":
             prop = instructions[i + 1]
             val = instructions[i + 2]
