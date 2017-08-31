@@ -52,7 +52,6 @@ def get_property(prop, default = None):
                 val = float(val)
             return val
         elif prop == "help":
-            get_properties().get
             return get_properties()["help"]
     except:
         e = sys.exc_info()[0]
@@ -90,7 +89,7 @@ def props_list(what):
             pprint.pprint(prop["commands"], width=1)
             return True
         elif what == "receives":
-            pprint.pprint(prop["receives"], width=10)
+            pprint.pprint(prop["receives"], width=1)
             return True
         elif what == "properties":
             pprint.pprint(valid_props, width=10)
