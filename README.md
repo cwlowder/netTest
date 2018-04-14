@@ -1,6 +1,6 @@
 # netTest
 This python script allows for the sending and receiving of packets over tcp<br/>
-This program can be run with `python3 client.py`
+This program can be run with `python3 netTest.py`
 
 ### Commands
 commands can be joined together using an `&` like so:<br/>
